@@ -1,4 +1,4 @@
-package com.example.golinks.golink.domain;
+package com.example.golinks.golink.repositories;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -94,8 +94,10 @@ public class GoLinkEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         GoLinkEntity that = (GoLinkEntity) o;
         return Objects.equals(id, that.id);
     }

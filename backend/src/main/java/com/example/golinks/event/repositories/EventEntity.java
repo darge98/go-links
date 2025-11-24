@@ -1,6 +1,6 @@
-package com.example.golinks.event.domain;
+package com.example.golinks.event.repositories;
 
-import com.example.golinks.golink.domain.GoLinkEntity;
+import com.example.golinks.golink.repositories.GoLinkEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -88,8 +88,10 @@ public class EventEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         EventEntity that = (EventEntity) o;
         return Objects.equals(id, that.id);
     }

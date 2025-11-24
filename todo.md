@@ -21,11 +21,11 @@ Based on `implementation_plan.md`.
 
 ## Chunk 3: Backend CRUD API (Basic)
 
-- [ ] **Step 3.1**: Create `GoLink` Record (Java 21) to serve as the API model.
-- [ ] **Step 3.2**: Implement `GoLinkService.create()` with validation (name regex, URL format, uniqueness).
-- [ ] **Step 3.3**: Implement `GoLinkController.create()` (`POST /api/golinks`).
-- [ ] **Step 3.4**: Implement `GoLinkService.findAll()` and `GoLinkController.getAll()` (`GET /api/golinks`).
-- [ ] **Step 3.5**: Implement `GoLinkService.findById()` and `GoLinkController.getById()` (`GET /api/golinks/{id}`).
+- [x] **Step 3.1**: Create `GoLink` Record (Java 21) to serve as the API model.
+- [x] **Step 3.2**: Implement `GoLinkService.create()` with validation (name regex, URL format, uniqueness).
+- [x] **Step 3.3**: Implement `GoLinkController.create()` (`POST /api/golinks`).
+- [x] **Step 3.4**: Implement `GoLinkService.findAll()` and `GoLinkController.getAll()` (`GET /api/golinks`).
+- [x] **Step 3.5**: Implement `GoLinkService.findById()` and `GoLinkController.getById()` (`GET /api/golinks/{id}`).
 
 ## Chunk 4: Backend CRUD API (Advanced)
 

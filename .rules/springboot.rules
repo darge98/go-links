@@ -41,10 +41,11 @@ When suggesting or creating new packages, follow this style:
   - `config` – application configuration classes.
   - `domain1` - domain feature package
     - `api` – REST controllers, DTOs, request/response.
-    - `application` – use cases, services.
-    - `domain` – entities, value objects, domain services, domain events.
-    - `infrastructure` – repositories (Spring Data), mappers, external adapters.
-  - `domain2` - domain feature package
+    - `services` – use cases, services.
+    - `repositories` – repositories and entities (Spring Data).
+    - `exceptions` – custom exceptions.
+    - `mappers` – mappers (e.g. for DTOs).
+  - `domain2` - domain2 feature package
     - ...
 Rules:
 
