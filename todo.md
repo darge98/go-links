@@ -12,12 +12,12 @@ Based on `implementation_plan.md`.
 
 ## Chunk 2: Backend Skeleton & Entities
 
-- [ ] **Step 2.1**: Initialize Spring Boot project (Web, JPA, Postgres, Actuator, Validation) in `/backend`. **No Lombok**.
-- [ ] **Step 2.2**: Configure `application.yml` (datasource, JPA settings) and `Dockerfile` for Backend (Java 21).
-- [ ] **Step 2.3**: Update `docker-compose.yml` to include the `backend` service.
-- [ ] **Step 2.4**: Create `GoLinkEntity` JPA Entity and `GoLinkRepository` (UUID PK, case-insensitive name lookup). Use standard getters/setters.
-- [ ] **Step 2.5**: Create `EventEntity` JPA Entity and `EventRepository`. Use standard getters/setters.
-- [ ] **Step 2.6**: Verify Backend starts, connects to DB, and exposes `/actuator/health`.
+- [x] **Step 2.1**: Initialize Spring Boot project (Web, JPA, Postgres, Actuator, Validation) in `/backend`. **No Lombok**.
+- [x] **Step 2.2**: Configure `application.yml` (datasource, JPA settings) and `Dockerfile` for Backend (Java 21).
+- [x] **Step 2.3**: Update `docker-compose.yml` to include the `backend` service.
+- [x] **Step 2.4**: Create `GoLinkEntity` JPA Entity and `GoLinkRepository` (UUID PK, case-insensitive name lookup). Use standard getters/setters.
+- [x] **Step 2.5**: Create `EventEntity` JPA Entity and `EventRepository`. Use standard getters/setters.
+- [x] **Step 2.6**: Verify Backend starts, connects to DB, and exposes `/actuator/health`.
 
 ## Chunk 3: Backend CRUD API (Basic)
 
