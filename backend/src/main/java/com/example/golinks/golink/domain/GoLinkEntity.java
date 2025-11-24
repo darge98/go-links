@@ -1,4 +1,4 @@
-package com.example.golinks.model;
+package com.example.golinks.golink.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -1,6 +1,6 @@
-package com.example.golinks.repository;
+package com.example.golinks.golink.infrastructure;
 
-import com.example.golinks.model.GoLinkEntity;
+import com.example.golinks.golink.domain.GoLinkEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,5 +1,6 @@
-package com.example.golinks.model;
+package com.example.golinks.event.domain;
 
+import com.example.golinks.golink.domain.GoLinkEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

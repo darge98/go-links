@@ -1,6 +1,6 @@
-package com.example.golinks.repository;
+package com.example.golinks.event.infrastructure;
 
-import com.example.golinks.model.EventEntity;
+import com.example.golinks.event.domain.EventEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -39,12 +39,13 @@ When suggesting or creating new packages, follow this style:
 
 - `com.example.app` (root)
   - `config` – application configuration classes.
-  - `customer` - domain feature package
+  - `domain1` - domain feature package
     - `api` – REST controllers, DTOs, request/response.
     - `application` – use cases, services.
     - `domain` – entities, value objects, domain services, domain events.
     - `infrastructure` – repositories (Spring Data), mappers, external adapters.
-
+  - `domain2` - domain feature package
+    - ...
 Rules:
 
 - Use **lowercase package names**.
