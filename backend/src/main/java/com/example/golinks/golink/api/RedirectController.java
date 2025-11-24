@@ -1,7 +1,6 @@
-package com.example.golinks.redirect.api;
+package com.example.golinks.golink.api;
 
 import com.example.golinks.core.exception.ResourceNotFoundException;
-import com.example.golinks.golink.api.GoLink;
 import com.example.golinks.golink.services.GoLinkService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
