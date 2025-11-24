@@ -36,12 +36,12 @@ Based on `implementation_plan.md`.
 
 ## Chunk 5: Frontend Foundation & List
 
-- [ ] **Step 5.1**: Initialize Angular CLI project in `/frontend`.
-- [ ] **Step 5.2**: Install and configure **TailwindCSS**.
-- [ ] **Step 5.3**: Create `Dockerfile` for Frontend (Multi-stage: Build -> Nginx).
-- [ ] **Step 5.4**: Update `docker-compose.yml` to include `frontend` and configure Nginx proxy for `/api`.
-- [ ] **Step 5.5**: Create `GoLink` interface and `GoLinkService` (Angular) to fetch data.
-- [ ] **Step 5.6**: Create `HomeComponent` with a TailwindCSS-styled table to list GoLinks.
+- [x] **Step 5.1**: Initialize Angular CLI project in `/frontend`.
+- [x] **Step 5.2**: Install and configure **TailwindCSS**.
+- [x] **Step 5.3**: Create `Dockerfile` for Frontend (Multi-stage: Build -> Nginx).
+- [x] **Step 5.4**: Update `docker-compose.yml` to include `frontend` and configure Nginx proxy for `/api`.
+- [x] **Step 5.5**: Create `GoLink` interface and `GoLinkService` (Angular) to fetch data.
+- [x] **Step 5.6**: Create `HomeComponent` with a TailwindCSS-styled table to list GoLinks.
 
 ## Chunk 6: Frontend Create & Edit
 

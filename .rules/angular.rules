@@ -172,7 +172,6 @@ Stores should contain:
 In this project:
 
 - Prefer `httpResource()` from @angular/common/http for HTTP-based resources where it makes sense.
-- Still rely on HttpClient under the hood through httpResource(); DO NOT reimplement a custom HTTP layer unnecessarily.
 
 Guidelines:
 
@@ -295,3 +294,8 @@ Guidelines:
   - \*.service.spec.ts
   - \*.store.spec.ts
 - Prefer testing behavior and outputs over internal implementation details.
+
+
+## 12. TailwindCSS
+
+- Use TailwindCSS for styling. Install it with command `ng add tailwindcss`
