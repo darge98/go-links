@@ -99,6 +99,13 @@ public class GoLinkService {
                 .orElseThrow(() -> new ResourceNotFoundException("GoLink not found with id: " + id));
     }
 
+    @Transactional(readOnly = true)
+    public GoLink findByName(String name) {
+        return repository.findByName(name.toLowerCase())
+                .map(this::mapToRecord)
+                .orElseThrow(() -> new ResourceNotFoundException("GoLink not found with name: " + name));
+    }
+
     private void validateName(String name) {
         if (name == null || !NAME_PATTERN.matcher(name.toLowerCase()).matches()) {
             throw new IllegalArgumentException("Invalid name format. Allowed characters: a-z, 0-9, _, -");

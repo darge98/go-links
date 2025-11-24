@@ -53,10 +53,10 @@ Based on `implementation_plan.md`.
 
 ## Chunk 7: Redirect Logic
 
-- [ ] **Step 7.1**: Create `RedirectController` in Backend at `/{slug}`.
-- [ ] **Step 7.2**: Implement lookup logic: `slug` -> lowercase -> DB lookup.
-- [ ] **Step 7.3**: Implement 302 Redirect logic (preserving query params).
-- [ ] **Step 7.4**: Implement 404 behavior (return custom HTML "Not Found").
+- [x] **Step 7.1**: Create `RedirectController` in Backend at `/{slug}`.
+- [x] **Step 7.2**: Implement lookup logic: `slug` -> lowercase -> DB lookup.
+- [x] **Step 7.3**: Implement 302 Redirect logic (preserving query params).
+- [x] **Step 7.4**: Implement 404 behavior (return custom HTML "Not Found").
 
 ## Chunk 8: Analytics Core (Backend)
 
