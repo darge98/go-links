@@ -299,3 +299,16 @@ Guidelines:
 ## 12. TailwindCSS
 
 - Use TailwindCSS for styling. Install it with command `ng add tailwindcss`
+
+## 13. Zoneless
+
+- Use Zoneless Change Detection
+Example:
+```ts
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideZonelessChangeDetection(),
+    ...
+  ]
+};
+```
