@@ -4,11 +4,11 @@ Based on `implementation_plan.md`.
 
 ## Chunk 1: Infrastructure & Database
 
-- [ ] **Step 1.1**: Initialize Git repository and directory structure (`/backend`, `/frontend`, `/sql`).
-- [ ] **Step 1.2**: Create `docker-compose.yml` with PostgreSQL service (v15).
-- [ ] **Step 1.3**: Create `sql/schema.sql` with `golink` table (UUID, name, target_url, etc.).
-- [ ] **Step 1.4**: Add `event` table to `schema.sql` (UUID, golink_id FK, ip_address, etc.).
-- [ ] **Step 1.5**: Verify DB startup and schema initialization using `docker-compose up`.
+- [x] **Step 1.1**: Initialize Git repository and directory structure (`/backend`, `/frontend`, `/sql`).
+- [x] **Step 1.2**: Create `docker-compose.yml` with PostgreSQL service (v15).
+- [x] **Step 1.3**: Create `sql/schema.sql` with `golink` table (UUID, name, target_url, etc.).
+- [x] **Step 1.4**: Add `event` table to `schema.sql` (UUID, golink_id FK, ip_address, etc.).
+- [x] **Step 1.5**: Verify DB startup and schema initialization using `docker-compose up`.
 
 ## Chunk 2: Backend Skeleton & Entities
 

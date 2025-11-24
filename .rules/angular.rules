@@ -1,0 +1,297 @@
+# Angular 21+ Rules for Cursor AI
+
+You are an AI assistant working in a TypeScript/Angular 21+ codebase.
+Always assume:
+
+- Angular 21+ with **standalone APIs**.
+- **Signals** as the main reactivity model.
+- **New control flow** (`@if`, `@for`, `@switch`, `@defer`).
+- **Zoneless-ready**, OnPush-friendly architecture.
+- Preference for **`httpResource`**, **Signal Forms**, and **NgRx Signals** where appropriate in this project.
+
+Your goal is to generate code that matches these rules and to propose refactors that move existing code toward them without unnecessary rewrites.
+
+---
+
+## 1. Project & Architecture Context
+
+- This is an Angular 21+ SPA structured by **feature/domain**.
+- Use **standalone components/directives/pipes only** for new code.
+- Avoid introducing new NgModules.
+  - If you need to reference modules that already exist, use them but do **not** create new ones unless explicitly asked.
+- Bootstrap is done with `bootstrapApplication` + provider functions (`provideRouter`, `provideHttpClient`, etc.).
+
+When generating or modifying code:
+
+- Prefer **small, focused features** with feature-level folders.
+- Keep cross-cutting concerns in `core/`.
+- Keep reusable UI in `shared/`.
+
+---
+
+## 2. Folder & File Structure
+
+When suggesting or creating new files, follow this structure:
+
+- `src/app/core/`
+  - App-wide services (auth, configuration, logging, etc.), singletons.
+- `src/app/shared/`
+  - Reusable components, directives, pipes, small utilities.
+- `src/app/features/<feature-name>/`
+  - Components, stores, services, templates specific to that feature.
+
+Naming rules:
+
+- Use `feature-name.type.ts`:
+  - `user-profile.component.ts`
+  - `user-profile.store.ts`
+  - `auth.service.ts`
+- Use these suffixes:
+  - `.component.ts`, `.directive.ts`, `.pipe.ts`, `.service.ts`, `.store.ts`
+- Tests mirror source files:
+  - `user-profile.component.spec.ts`, etc.
+
+---
+
+## 3. Components (Standalone, Signals, Control Flow)
+
+For **new components** you generate:
+
+- Must be **standalone**:
+
+  ```ts
+  @Component({
+    standalone: true,
+    selector: 'app-something',
+    templateUrl: './something.component.html',
+    styleUrls: ['./something.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [CommonModule],
+  })
+  export class SomethingComponent { ... }
+  ```
+
+- Always set `ChangeDetectionStrategy.OnPush`.
+- Use `inject()` for DI instead of constructor injection in new code.
+- Use signals for local state:
+
+  ```ts
+  count = signal(0);
+  doubled = computed(() => this.count() * 2);
+  ```
+
+- Use **signal-based inputs/outputs**:
+  Prefer `input()`, `output()`, `model()` over @Input() / @Output() for new code.
+
+  Example:
+
+  ```ts
+  readonly title = input.required<string>();
+  readonly value = model<number>(0);
+  readonly clicked = output<void>();
+  ```
+
+- Use the new control flow in templates:
+  - `@if / @else`
+  - `@for (item of items; track item.id)`
+  - `@switch / @case / @default`
+- Use `@for` with a proper track function or key expression for lists.
+
+When modifying older components:
+
+- Prefer **incremental refactors**:
+  - You may replace *ngIf / *ngFor with @if / @for when the change is local and safe.
+  - You may introduce signals for new logic without rewriting everything.
+
+## 4. Communication Between Components
+
+For parent–child communication in new code:
+
+- Use `input()` for one-way data flow from parent to child.
+- Use `output()` for events from child to parent.
+- Use `model()` for two-way bindings ([(value)]) when appropriate.
+
+Example:
+
+```ts
+readonly label = input.required<string>();
+readonly value = model<number>(0);
+readonly valueChanged = output<number>();
+```
+
+In templates:
+
+```html
+<app-counter [label]="'Items'" [(value)]="itemsCount" />
+```
+
+## 5. State Management
+
+### 5.1 Local & Feature State
+
+- For **local component state**, use signals directly in the component.
+- For **feature/application state**, prefer NgRx Signals (@ngrx/signals) and especially SignalStore in this project.
+
+Guidelines:
+
+- Create a \*.store.ts file for each significant component/feature that manages its own state.
+
+```ts
+import { signalStore, withState } from "@ngrx/signals";
+import { Book } from "./book";
+
+type BookSearchState = {
+  books: Book[];
+  isLoading: boolean;
+  filter: { query: string; order: "asc" | "desc" };
+};
+
+const initialState: BookSearchState = {
+  books: [],
+  filter: { query: "", order: "asc" },
+};
+
+export const BookSearchStore = signalStore(withState(initialState));
+```
+
+Stores should contain:
+
+- State (as signals).
+- Derived/computed state.
+- Mutations (updaters).
+- Side-effects (effects).
+
+### 5.2 Anti-patterns
+
+- Avoid pushing all state into a single global store.
+- Avoid mixing view logic and store logic.
+- Avoid duplicating the same state in multiple places.
+
+## 6. HTTP & Data Fetching
+
+In this project:
+
+- Prefer `httpResource()` from @angular/common/http for HTTP-based resources where it makes sense.
+- Still rely on HttpClient under the hood through httpResource(); DO NOT reimplement a custom HTTP layer unnecessarily.
+
+Guidelines:
+
+- Configure HTTP via `provideHttpClient()` (and needed features) in bootstrapApplication or app config.
+- Use `httpResource()` for data that:
+
+  - Is fetched over HTTP.
+  - Benefits from reactive refresh (depends on signals).
+  - Needs loading/error state as signals.
+
+Example (simplified):
+
+```ts
+id = signal(1);
+
+userResource = httpResource(() => `/api/users/${this.id()}`);
+```
+
+- Expose **data**, **loading**, and **error** as signals to the template.
+
+- For existing code that uses only HttpClient directly:
+
+  - Don’t rewrite everything automatically.
+  - Introduce httpResource() progressively when modifying or adding features.
+
+## 7. Forms
+
+### 7.1 Recommended Approach
+
+For existing code, **reactive forms** or **template-driven** forms are acceptable.
+
+For new forms, this project prefers **Signal Forms** when the UX is non-trivial, while being aware they are still experimental in Angular 21.
+
+If the user explicitly says “don’t use Signal Forms”, fall back to **Reactive Forms**.
+
+### 7.2 Signal Forms (Angular 21+)
+
+When you use **Signal Forms**:
+
+- Use the API from @angular/forms/signals.
+- Manage form state as signals.
+- Keep business rules in services or stores, not in templates.
+
+You MUST:
+
+- Mention that Signal Forms are experimental if you propose using them in new code comments or explanations.
+- Keep the API usage aligned with current Angular documentation (e.g. using form() helpers, schema-based validation, etc.).
+
+## 8. Routing, Lazy Loading & Defer
+
+### 8.1 Routing
+
+Use **standalone route configuration** with `provideRouter(routes)`.
+
+Use **feature-based routing**:
+
+- Each feature folder can define its own route tree.
+- Prefer `loadComponent` / `loadChildren` for lazy loading.
+
+### 8.2 @defer & Performance
+
+Use `@defer` to lazily load:
+
+- Heavy components.
+- Below-the-fold sections.
+- Non-critical widgets (charts, reports, etc.).
+  Template example:
+
+```html
+@defer (on idle) {
+<app-heavy-widget />
+} @placeholder {
+<p>Loading widget…</p>
+}
+```
+
+- Do NOT wrap every small element in `@defer`. Use it for significant chunks only.
+
+## 9. Performance & Best Practices
+
+When generating or refactoring code:
+
+- Assume `ChangeDetectionStrategy.OnPush` by default.
+- Use computed signals instead of heavy logic in templates.
+- Use `@for (...; track ...) with a proper track key for lists.
+- Debounce or throttle heavy events (scroll, resize, frequent inputs) if you add handlers.
+- Avoid unnecessary RxJS for simple local state; use signals.
+- Avoid deeply nested component trees where a simpler structure is possible.
+
+## 10. Security & HTTP Practices
+
+Never build manual query strings with unescaped user input.
+
+Do not use innerHTML with untrusted content; if you must, mention sanitization.
+
+Assume HTTPS APIs.
+
+### 10.1 Authentication
+
+Use interceptors (e.g. Bearer token) rather than manual header setting in every call.
+
+### 10.2 Errors
+
+Don’t expose raw error objects to the UI.
+
+Show user-friendly messages and log technical details where appropriate.
+
+## 11. Testing
+
+For new code, generate tests that:
+
+- Use standalone TestBed configuration (imports: [ComponentUnderTest]).
+- Use provideHttpClientTesting() when HTTP is involved.
+- Keep tests small and focused on behavior.
+
+Guidelines:
+
+- Mirror file structure:
+  - \*.component.spec.ts
+  - \*.service.spec.ts
+  - \*.store.spec.ts
+- Prefer testing behavior and outputs over internal implementation details.

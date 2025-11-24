@@ -1,0 +1,98 @@
+# Spring Boot 4.0 + Java 21 Rules for Cursor AI
+
+You are an AI assistant working in a **Spring Boot 4.0** codebase using **Java 21**.
+
+Always assume:
+
+- Spring Boot **4.x** built on **Spring Framework 7** and **Jakarta EE 11** (Servlet 6.1, JPA 3.2, Bean Validation 3.1).
+- **Java 21** as the runtime, with support for virtual threads, pattern matching, records, and other modern language features.
+- Dependencies aligned with Boot 4’s **modular design** and system requirements (Servlet 6.1+, Tomcat 11, Jetty 12, GraalVM 25+ for native).
+
+Your goal is to:
+
+1. Generate **idiomatic Spring Boot 4 + Java 21 code**.
+2. Prefer **modern patterns** over legacy ones.
+3. Propose **incremental refactors** that move existing code toward Boot 4 / Java 21 best practices without unnecessary rewrites.
+
+---
+
+## 1. Project & Architecture Context
+
+- This is a **Spring Boot 4.0** application using the **jakarta.\*** namespaces (no `javax.*`).
+- Target runtime: **Java 21 LTS**.
+- The default architecture is **layered, domain-oriented**:
+  - API layer: REST controllers.
+  - Application / service layer: use cases and business logic.
+  - Domain layer: entities, value objects, domain services.
+  - Infrastructure layer: repositories, integration adapters, messaging, external services.
+
+When generating or modifying code:
+
+- Prefer **feature-/domain-based packages**, not purely technical (i.e. `customer`, `order`, etc., not only `controller`, `service`, `repository`).
+- Stick to **Spring Boot conventions over configuration**: use starters and auto-configuration rather than custom boilerplate wherever reasonable.
+
+---
+
+## 2. Package & File Structure
+
+When suggesting or creating new packages, follow this style:
+
+- `com.example.app` (root)
+  - `config` – application configuration classes.
+  - `customer` - domain feature package
+    - `api` – REST controllers, DTOs, request/response.
+    - `application` – use cases, services.
+    - `domain` – entities, value objects, domain services, domain events.
+    - `infrastructure` – repositories (Spring Data), mappers, external adapters.
+
+Rules:
+
+- Use **lowercase package names**.
+- Name classes clearly:
+  - `CustomerController`, `CustomerService`, `CustomerRepository`, `CustomerEntity`, `Customer`, `CustomerMapper`.
+- Prefer **one public top-level class per file**.
+- Use **record** classes for immutable DTOs where possible (Java 21).
+
+---
+
+## 3. Dependencies, Build & Configuration
+
+- Assume **Maven or Gradle 8+/9+** compatible with Java 21 and Boot 4.
+- Use official **Spring Boot 4 starters** and follow the modular artifact names recommended in the 4.0 migration notes.
+- Use `application.yml` (or `application-*.yml`) as the default for configuration examples.
+- For Boot configuration:
+  - Prefer **type-safe configuration properties** (`@ConfigurationProperties`) over `@Value`.
+  - Group related config into dedicated properties classes.
+
+When generating `pom.xml`/`build.gradle` snippets:
+
+- Do **not** pin versions for Spring Boot and Spring dependencies manually; rely on the Boot BOM and plugin where possible.
+- Assume Java 21 in the compiler configuration:
+  - Maven: `<release>21</release>`.
+  - Gradle: `sourceCompatibility = JavaVersion.VERSION_21`.
+
+---
+
+## 4. Web Layer & REST APIs
+
+- Use **annotated controllers** (`@RestController`) for HTTP APIs.
+- Map APIs with `@RequestMapping` / `@GetMapping` / `@PostMapping` etc.
+- Always return **typed responses** (`ResponseEntity<T>` or directly `T`).
+- Use **DTOs / records** for input and output instead of exposing JPA entities directly.
+
+Rules:
+
+- Use `jakarta.validation` annotations on request DTOs (`@NotNull`, `@Size`, `@Email`, etc.).
+- Annotate controller methods’ arguments with:
+  - `@RequestBody` for JSON bodies.
+  - `@PathVariable` / `@RequestParam` / `@RequestHeader` as needed.
+- Validate inputs using `@Valid` / `@Validated`.
+
+Example DTO as record:
+
+```java
+public record CreateCustomerRequest(
+    @NotBlank String name,
+    @Email String email
+) {}
+```
