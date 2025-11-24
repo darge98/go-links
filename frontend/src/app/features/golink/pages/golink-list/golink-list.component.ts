@@ -1,10 +1,12 @@
 import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GoLinkService } from './golink.service';
+import { RouterLink } from '@angular/router';
+import { GoLinkService } from '../../services/golink.service';
 
 @Component({
+  selector: 'app-golink-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './golink-list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })

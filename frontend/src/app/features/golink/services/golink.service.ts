@@ -1,6 +1,6 @@
 import { Injectable, signal, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { GoLink } from './golink.model';
+import { GoLink } from '../models/golink.model';
 import { Observable } from 'rxjs';
 
 @Injectable({

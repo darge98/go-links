@@ -38,7 +38,9 @@ When suggesting or creating new files, follow this structure:
 - `src/app/shared/`
   - Reusable components, directives, pipes, small utilities.
 - `src/app/features/<feature-name>/`
-  - Components, stores, services, templates specific to that feature.
+  - `src/app/features/<feature-name>/pages/` - For components that are pages
+  - `src/app/features/<feature-name>/services/` - For services
+  - `src/app/features/<feature-name>/components/` - For reusable components
 
 Naming rules:
 

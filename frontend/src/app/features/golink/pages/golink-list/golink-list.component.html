@@ -1,9 +1,9 @@
 <div class="container mx-auto px-4 py-8">
   <div class="flex justify-between items-center mb-6">
     <h1 class="text-3xl font-bold text-gray-900">GoLinks</h1>
-    <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">
+    <a routerLink="/new" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors inline-block">
       + Create New Link
-    </button>
+    </a>
   </div>
 
   @if (error()) {
@@ -31,13 +31,14 @@
               <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
               <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tags</th>
               <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
+              <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
             </tr>
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
             @for (link of goLinks(); track link.id) {
               <tr class="hover:bg-gray-50 transition-colors">
                 <td class="px-6 py-4 whitespace-nowrap">
-                  <span class="text-sm font-medium text-blue-600">go/{{ link.name }}</span>
+                  <a [routerLink]="['/edit', link.id]" class="text-sm font-medium text-blue-600 hover:underline">go/{{ link.name }}</a>
                 </td>
                 <td class="px-6 py-4">
                   <a [href]="link.targetUrl" target="_blank" class="text-sm text-gray-900 hover:text-blue-600 truncate block max-w-md">
@@ -58,6 +59,9 @@
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                   {{ link.createdAt | date:'short' }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  <a [routerLink]="['/edit', link.id]" class="text-indigo-600 hover:text-indigo-900">Edit</a>
                 </td>
               </tr>
             }

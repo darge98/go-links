@@ -1,0 +1,113 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-6 bg-white p-8 rounded-lg shadow-md">
+  
+  @if (errorMessage()) {
+    <div class="bg-red-50 border-l-4 border-red-500 p-4">
+      <p class="text-red-700">{{ errorMessage() }}</p>
+    </div>
+  }
+
+  <!-- Name Field -->
+  <div>
+    <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+    <div class="mt-1 relative rounded-md shadow-sm">
+      <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+        <span class="text-gray-500 sm:text-sm">go/</span>
+      </div>
+      <input
+        type="text"
+        id="name"
+        formControlName="name"
+        class="focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
+        [class.bg-gray-100]="form.controls.name.disabled"
+        placeholder="google"
+      />
+    </div>
+    @if (form.controls.name.touched && form.controls.name.errors?.['required']) {
+      <p class="mt-2 text-sm text-red-600">Name is required</p>
+    }
+    @if (form.controls.name.touched && form.controls.name.errors?.['pattern']) {
+      <p class="mt-2 text-sm text-red-600">Name must contain only lowercase letters, numbers, hyphens, and underscores</p>
+    }
+  </div>
+
+  <!-- Target URL Field -->
+  <div>
+    <label for="targetUrl" class="block text-sm font-medium text-gray-700">Target URL</label>
+    <input
+      type="url"
+      id="targetUrl"
+      formControlName="targetUrl"
+      class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+      placeholder="https://google.com"
+    />
+    @if (form.controls.targetUrl.touched && form.controls.targetUrl.errors?.['required']) {
+      <p class="mt-2 text-sm text-red-600">Target URL is required</p>
+    }
+    @if (form.controls.targetUrl.touched && form.controls.targetUrl.errors?.['pattern']) {
+      <p class="mt-2 text-sm text-red-600">Must be a valid URL starting with http:// or https://</p>
+    }
+  </div>
+
+  <!-- Description Field -->
+  <div>
+    <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+    <textarea
+      id="description"
+      formControlName="description"
+      rows="3"
+      class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+      placeholder="Optional description"
+    ></textarea>
+  </div>
+
+  <!-- Tags Field -->
+  <div>
+    <label for="tags" class="block text-sm font-medium text-gray-700">Tags</label>
+    <input
+      type="text"
+      id="tags"
+      formControlName="tags"
+      class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+      placeholder="search, engine, external (comma separated)"
+    />
+  </div>
+
+  <!-- Actions -->
+  <div class="flex justify-between pt-4 border-t border-gray-200">
+    <div>
+      @if (showDelete()) {
+        <button
+          type="button"
+          (click)="onDelete()"
+          class="bg-red-50 py-2 px-4 border border-red-300 rounded-md shadow-sm text-sm font-medium text-red-700 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+        >
+          Delete
+        </button>
+      }
+    </div>
+    <div class="flex space-x-3">
+      <button
+        type="button"
+        (click)="onCancel()"
+        class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+      >
+        Cancel
+      </button>
+      <button
+        type="submit"
+        [disabled]="form.invalid || isLoading()"
+        class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        @if (isLoading()) {
+          <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          Saving...
+        } @else {
+          Save
+        }
+      </button>
+    </div>
+  </div>
+</form>
