@@ -23,6 +23,7 @@ public class GoLinkController {
         GoLink created = service.create(input);
         return ResponseEntity
                 .created(URI.create("/api/golinks/" + created.id()))
+                .eTag(created.lockUuid().toString())
                 .body(created);
     }
 
@@ -33,6 +34,40 @@ public class GoLinkController {
 
     @GetMapping("/{id}")
     public ResponseEntity<GoLink> getById(@PathVariable UUID id) {
-        return ResponseEntity.ok(service.findById(id));
+        GoLink found = service.findById(id);
+        return ResponseEntity.ok()
+                .eTag(found.lockUuid().toString())
+                .body(found);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<GoLink> update(
+            @PathVariable UUID id,
+            @RequestBody GoLink input,
+            @RequestHeader(value = "If-Match", required = false) String ifMatch) {
+
+        if (ifMatch == null) {
+            throw new IllegalArgumentException("If-Match header is required for updates");
+        }
+
+        // ETag header often comes with quotes, e.g., "uuid". Remove them if present.
+        String cleanIfMatch = ifMatch.replace("\"", "");
+        UUID lockUuid;
+        try {
+            lockUuid = UUID.fromString(cleanIfMatch);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Invalid If-Match header format");
+        }
+
+        GoLink updated = service.update(id, input, lockUuid);
+        return ResponseEntity.ok()
+                .eTag(updated.lockUuid().toString())
+                .body(updated);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable UUID id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -29,10 +29,10 @@ Based on `implementation_plan.md`.
 
 ## Chunk 4: Backend CRUD API (Advanced)
 
-- [ ] **Step 4.1**: Add `ETag` support to `GET /api/golinks/{id}` (using a "lock" UUID).
-- [ ] **Step 4.2**: Implement `GoLinkService.update()` with `If-Match` check (Optimistic Locking).
-- [ ] **Step 4.3**: Implement `GoLinkController.update()` (`PUT /api/golinks/{id}`).
-- [ ] **Step 4.4**: Implement `GoLinkController.delete()` (`DELETE /api/golinks/{id}`) with cascade delete.
+- [x] **Step 4.1**: Add `ETag` support to `GET /api/golinks/{id}` (using a "lock" UUID).
+- [x] **Step 4.2**: Implement `GoLinkService.update()` with `If-Match` check (Optimistic Locking).
+- [x] **Step 4.3**: Implement `GoLinkController.update()` (`PUT /api/golinks/{id}`).
+- [x] **Step 4.4**: Implement `GoLinkController.delete()` (`DELETE /api/golinks/{id}`) with cascade delete.
 
 ## Chunk 5: Frontend Foundation & List
 

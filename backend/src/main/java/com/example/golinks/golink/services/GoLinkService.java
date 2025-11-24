@@ -43,9 +43,46 @@ public class GoLinkService {
         entity.setTags(input.tags() != null ? String.join(",", input.tags()) : null);
         entity.setCreatedAt(Instant.now());
         entity.setUpdatedAt(Instant.now());
+        entity.setLockUuid(UUID.randomUUID());
 
         GoLinkEntity saved = repository.save(entity);
         return mapToRecord(saved);
+    }
+
+    public GoLink update(UUID id, GoLink input, UUID ifMatch) {
+        validateTargetUrl(input.targetUrl());
+
+        GoLinkEntity entity = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("GoLink not found with id: " + id));
+
+        if (!entity.getLockUuid().equals(ifMatch)) {
+            throw new ResourceConflictException(
+                    "Optimistic locking failure: Resource has been modified by another transaction");
+        }
+
+        // Name is immutable for now, or at least not updated here based on plan (only
+        // target, desc, tags)
+        // If name update is needed, we'd need validation and uniqueness check again.
+        // Plan says "Update fields from input". Let's assume name is immutable or we
+        // just update other fields.
+        // Usually slugs are immutable or hard to change. Let's update targetUrl,
+        // description, tags.
+
+        entity.setTargetUrl(input.targetUrl());
+        entity.setDescription(input.description());
+        entity.setTags(input.tags() != null ? String.join(",", input.tags()) : null);
+        entity.setUpdatedAt(Instant.now());
+        entity.setLockUuid(UUID.randomUUID());
+
+        GoLinkEntity saved = repository.save(entity);
+        return mapToRecord(saved);
+    }
+
+    public void delete(UUID id) {
+        if (!repository.existsById(id)) {
+            throw new ResourceNotFoundException("GoLink not found with id: " + id);
+        }
+        repository.deleteById(id);
     }
 
     @Transactional(readOnly = true)
@@ -84,6 +121,7 @@ public class GoLinkService {
                 entity.getTargetUrl(),
                 entity.getDescription(),
                 tags,
-                entity.getCreatedAt());
+                entity.getCreatedAt(),
+                entity.getLockUuid());
     }
 }

@@ -33,6 +33,9 @@ public class GoLinkEntity {
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 
+    @Column(name = "lock_uuid", nullable = false)
+    private UUID lockUuid;
+
     public GoLinkEntity() {
     }
 
@@ -90,6 +93,14 @@ public class GoLinkEntity {
 
     public void setUpdatedAt(Instant updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public UUID getLockUuid() {
+        return lockUuid;
+    }
+
+    public void setLockUuid(UUID lockUuid) {
+        this.lockUuid = lockUuid;
     }
 
     @Override

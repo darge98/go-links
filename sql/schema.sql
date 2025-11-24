@@ -6,7 +6,8 @@ CREATE TABLE golink (
     description VARCHAR(255),
     tags VARCHAR(500),
     created_at TIMESTAMP WITH TIME ZONE NOT NULL,
-    updated_at TIMESTAMP WITH TIME ZONE NOT NULL
+    updated_at TIMESTAMP WITH TIME ZONE NOT NULL,
+    lock_uuid UUID NOT NULL
 );
 
 -- Create event table
