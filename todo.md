@@ -45,11 +45,11 @@ Based on `implementation_plan.md`.
 
 ## Chunk 6: Frontend Create & Edit
 
-- [ ] **Step 6.1**: Create `GoLinkFormComponent` (Reusable for Create/Edit) styled with TailwindCSS.
-- [ ] **Step 6.2**: Implement "Create GoLink" page using the form and `POST` API.
-- [ ] **Step 6.3**: Implement "Edit GoLink" page using the form, `GET` (for data), and `PUT` API.
-- [ ] **Step 6.4**: Handle Optimistic Locking errors (409) in the UI (Show message).
-- [ ] **Step 6.5**: Add "Delete" button to List/Detail with confirmation dialog.
+- [x] **Step 6.1**: Create `GoLinkFormComponent` (Reusable for Create/Edit) styled with TailwindCSS.
+- [x] **Step 6.2**: Implement "Create GoLink" page using the form and `POST` API.
+- [x] **Step 6.3**: Implement "Edit GoLink" page using the form, `GET` (for data), and `PUT` API.
+- [x] **Step 6.4**: Handle Optimistic Locking errors (409) in the UI (Show message).
+- [x] **Step 6.5**: Add "Delete" button to List/Detail with confirmation dialog.
 
 ## Chunk 7: Redirect Logic
 
