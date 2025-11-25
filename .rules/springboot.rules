@@ -1,4 +1,4 @@
-# Spring Boot 4.0 + Java 21 Rules for Cursor AI
+# Spring Boot + Java 21 Rules
 
 You are an AI assistant working in a **Spring Boot 4.0** codebase using **Java 21**.
 
@@ -10,15 +10,15 @@ Always assume:
 
 Your goal is to:
 
-1. Generate **idiomatic Spring Boot 4 + Java 21 code**.
+1. Generate **idiomatic Spring Boot + Java 21 code**.
 2. Prefer **modern patterns** over legacy ones.
-3. Propose **incremental refactors** that move existing code toward Boot 4 / Java 21 best practices without unnecessary rewrites.
+3. Propose **incremental refactors** that move existing code toward Spring Boot 3.5 / Java 21 best practices without unnecessary rewrites.
 
 ---
 
 ## 1. Project & Architecture Context
 
-- This is a **Spring Boot 4.0** application using the **jakarta.\*** namespaces (no `javax.*`).
+- This is a **Spring Boot 3** application using the **jakarta.\*** namespaces (no `javax.*`).
 - Target runtime: **Java 21 LTS**.
 - The default architecture is **layered, domain-oriented**:
   - API layer: REST controllers.
@@ -59,8 +59,8 @@ Rules:
 
 ## 3. Dependencies, Build & Configuration
 
-- Assume **Maven or Gradle 8+/9+** compatible with Java 21 and Boot 4.
-- Use official **Spring Boot 4 starters** and follow the modular artifact names recommended in the 4.0 migration notes.
+- Assume **Maven or Gradle 8+/9+** compatible with Java 21 and Spring Boot 3.
+- Use official **Spring Boot 3 starters** and follow the modular artifact names recommended in the 3.5 migration notes.
 - Use `application.yml` (or `application-*.yml`) as the default for configuration examples.
 - For Boot configuration:
   - Prefer **type-safe configuration properties** (`@ConfigurationProperties`) over `@Value`.
