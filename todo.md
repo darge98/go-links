@@ -67,6 +67,6 @@ Based on `implementation_plan.md`.
 
 ## Chunk 9: Analytics UI (Frontend)
 
-- [ ] **Step 9.1**: Add "Analytics" tab/section to `GoLinkDetailComponent`.
-- [ ] **Step 9.2**: Fetch and display "Total Clicks" and "Daily Clicks" (Chart or Table).
-- [ ] **Step 9.3**: Create `TopLinksComponent` to show global top links.
+- [x] **Step 9.1**: Add "Analytics" tab/section to `GoLinkDetailComponent`.
+- [x] **Step 9.2**: Fetch and display "Total Clicks" and "Daily Clicks" (Chart or Table).
+- [x] **Step 9.3**: Create `TopLinksComponent` to show global top links.
