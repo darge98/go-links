@@ -1,0 +1,5 @@
+project:
+  name: go-links
+  tz: Europe/Rome
+  adrFolder: ./docs/adr
+  packages: []
