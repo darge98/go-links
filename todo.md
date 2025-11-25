@@ -60,10 +60,10 @@ Based on `implementation_plan.md`.
 
 ## Chunk 8: Analytics Core (Backend)
 
-- [ ] **Step 8.1**: Update `RedirectController` to save an `EventEntity` asynchronously (or sync for MVP) on redirect.
-- [ ] **Step 8.2**: Implement `AnalyticsService.getStats(id, from, to)` (Daily aggregation).
-- [ ] **Step 8.3**: Implement `AnalyticsController.getStats()` endpoint.
-- [ ] **Step 8.4**: Implement `AnalyticsService.getTopLinks(from, to, limit)` and Controller endpoint.
+- [x] **Step 8.1**: Update `RedirectController` to save an `EventEntity` asynchronously (or sync for MVP) on redirect.
+- [x] **Step 8.2**: Implement `AnalyticsService.getStats(id, from, to)` (Daily aggregation).
+- [x] **Step 8.3**: Implement `AnalyticsController.getStats()` endpoint.
+- [x] **Step 8.4**: Implement `AnalyticsService.getTopLinks(from, to, limit)` and Controller endpoint.
 
 ## Chunk 9: Analytics UI (Frontend)
 

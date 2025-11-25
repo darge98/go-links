@@ -1,5 +1,6 @@
 package com.example.golinks.golink.api;
 
+import com.example.golinks.analytics.services.AnalyticsService;
 import com.example.golinks.core.exception.ResourceNotFoundException;
 import com.example.golinks.golink.services.GoLinkService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,14 +18,25 @@ import java.net.URI;
 public class RedirectController {
 
     private final GoLinkService service;
+    private final AnalyticsService analyticsService;
 
-    public RedirectController(GoLinkService service) {
+    public RedirectController(GoLinkService service, AnalyticsService analyticsService) {
         this.service = service;
+        this.analyticsService = analyticsService;
     }
 
     @GetMapping("/{slug}")
     public ResponseEntity<Void> redirect(@PathVariable String slug, HttpServletRequest request) {
         GoLink goLink = service.findByName(slug);
+
+        // Track event asynchronously (fire and forget for now, or sync as per plan MVP)
+        // Plan says "asynchronously (or sync for MVP)". Let's do sync for simplicity
+        // and reliability first.
+        analyticsService.trackEvent(
+                goLink.id(),
+                request.getRemoteAddr(),
+                request.getHeader("User-Agent"),
+                request.getHeader("Referer"));
 
         String targetUrl = goLink.targetUrl();
         String queryString = request.getQueryString();
