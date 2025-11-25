@@ -75,7 +75,6 @@ public class RedirectController {
                     <div class="container">
                         <h1>404 - GoLink Not Found</h1>
                         <p>The requested GoLink does not exist.</p>
-                        <a href="/">Go to Dashboard</a>
                     </div>
                 </body>
                 </html>
